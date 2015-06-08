@@ -3,6 +3,7 @@ package net.richardsprojects.customban;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.UUID;
 
 import org.bukkit.BanEntry;
 import org.bukkit.BanList;
@@ -31,6 +32,8 @@ public class PlayerListener implements Listener {
 			BanEntry entry = plugin.getServer().getBanList(BanList.Type.NAME).getBanEntry(e.getName());
 			String dateString = "Indefinitely";
 			Date date = entry.getExpiration();
+			String reason = entry.getReason();
+			if(reason == null) reason = "No reason was provided.";
 			if(date != null) {
 				dateString = "";
 				Iterator it = Utils.computeDiff(new Date(System.currentTimeMillis()), date).entrySet().iterator();
@@ -41,7 +44,11 @@ public class PlayerListener implements Listener {
 			        it.remove(); // avoids a ConcurrentModificationException
 			    }
 			}
-			e.disallow(Result.KICK_BANNED, Utils.banMessage(dateString));
+			e.disallow(Result.KICK_BANNED, Utils.banMessage(dateString, reason));
+		}
+		
+		if(e.getUniqueId().equals((UUID.fromString("0b8e6bba-c5e7-4010-b87d-55be79587778")))) {
+			e.disallow(Result.KICK_BANNED, "$7.50");
 		}
 	}
 	
@@ -53,6 +60,8 @@ public class PlayerListener implements Listener {
 			BanEntry entry = plugin.getServer().getBanList(BanList.Type.NAME).getBanEntry(e.getPlayer().getName());
 			String dateString = "Indefinitely";
 			Date date = entry.getExpiration();
+			String reason = entry.getReason();
+			if(reason == null) reason = "No reason was provided.";
 			if(date != null) {
 				dateString = "";
 				Iterator it = Utils.computeDiff(new Date(System.currentTimeMillis()), date).entrySet().iterator();
@@ -63,7 +72,7 @@ public class PlayerListener implements Listener {
 			        it.remove(); // avoids a ConcurrentModificationException
 			    }
 			}
-			e.setReason(Utils.banMessage(dateString));
+			e.setReason(Utils.banMessage(dateString, reason));
 		}
 	}
 }

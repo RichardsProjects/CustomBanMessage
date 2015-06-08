@@ -12,8 +12,9 @@ public class CustomBan extends JavaPlugin {
 	public FileConfiguration config;
 	
 	public static String bannedLine1 = "&4&lBanned:";
-	public static String bannedLine2 = "&d&lAppeal Here: &b&lhttp://www.testserver.com";
+	public static String bannedLine2 = "&d&lReason: &b&l REASON";
 	public static String bannedLine3 = "&d&lBan Length: &b&l BAN_TIME";
+	public static String bannedLine4 = "&d&lAppeal Here: &b&l [Fill in Website Address]";
 	
 	@Override
 	public void onEnable() {
@@ -40,17 +41,19 @@ public class CustomBan extends JavaPlugin {
 			config.addDefault("BannedLine1", bannedLine1);
 			config.addDefault("BannedLine2", bannedLine2);
 			config.addDefault("BannedLine3", bannedLine3);
+			config.addDefault("BannedLine4", bannedLine4);
 			
 			config.options().copyDefaults(true);
 			saveConfig();
 			
-			log.info("[CustomBan] Generated config.yml");
+			log.info("[CustomBanMessage] Generated config.yml");
 		} else {
 			config = this.getConfig();
 			
 			bannedLine1 = config.getString("BannedLine1");
 			bannedLine2 = config.getString("BannedLine2");
 			bannedLine3 = config.getString("BannedLine3");
+			bannedLine4 = config.getString("BannedLine4");
 		}
 	}
 

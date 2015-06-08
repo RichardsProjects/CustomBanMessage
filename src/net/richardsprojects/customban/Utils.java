@@ -13,12 +13,20 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Utils {
 
-	public static String banMessage(String expiry) {
+	public static String banMessage(String expiry, String reason) {
 		String line1 = colorCodes(CustomBan.bannedLine1);
 		String line2 = colorCodes(CustomBan.bannedLine2);
 		String line3 = colorCodes(CustomBan.bannedLine3);
+		String line4 = colorCodes(CustomBan.bannedLine4);
+		line1 = line1.replace("BAN_TIME", expiry);
+		line2 = line2.replace("BAN_TIME", expiry);
 		line3 = line3.replace("BAN_TIME", expiry);
-		String result = line1 + "\n" + line2 + "\n" + line3;
+		line4 = line4.replace("BAN_TIME", expiry);
+		line1 = line1.replace("REASON", reason);
+		line2 = line2.replace("REASON", reason);
+		line3 = line3.replace("REASON", reason);
+		line4 = line4.replace("REASON", reason);
+		String result = line1 + "\n" + line2 + "\n" + line3 + "\n" + line4;
 		return result;
 	}
 	
